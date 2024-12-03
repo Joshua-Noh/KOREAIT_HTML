@@ -2,9 +2,28 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title> 복합대입 연산자-테이블 만들기 </title>
+<title>복합대입 연산자-테이블 만들기</title>
 <script>
+    // JavaScript 코드
+    window.onload = function() {
+        // 문자열 변수 초기화
+        var str = "<table border='1'>";
+        str += "<tr>";
+        str += "<td>하나</td>";
+        str += "<td>둘</td>";
+        str += "<td>셋</td>";
+        str += "</tr>";
+        str += "</table><br>";
 
+        // 추가 요소
+        str += "<input type='text' name='txt'><br>";
+        str += "<select>";
+        str += "<option>전체</option>";
+        str += "</select>";
+
+        // HTML 출력
+        document.write(str);
+    };
 </script>
 </head>
 <body>
