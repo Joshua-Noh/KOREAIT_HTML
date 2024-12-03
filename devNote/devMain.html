@@ -54,28 +54,14 @@
         <!-- Sidebar Section -->
         <aside class="col-lg-3 col-md-4 col-sm-12">
             <h3>카테고리</h3>
-            <ul class="list-group">
-                <li class="list-group-item"><a href="#" aria-label="알고리즘 카테고리">알고리즘 (10)</a></li>
-                <li class="list-group-item"><a href="#" aria-label="프로그래밍 언어 카테고리">프로그래밍 언어 (95)</a></li>
-                <li class="list-group-item"><a href="#" aria-label="운영체제 카테고리">운영체제 (38)</a></li>
-                <li class="list-group-item"><a href="#" aria-label="프로젝트 카테고리">프로젝트 (1)</a></li>
-            </ul>
+            <ul class="list-group" id="categoryList"></ul>
         </aside>
 
         <!-- Main Content Section -->
         <div class="col-lg-9 col-md-8 col-sm-12">
             <section>
                 <h2>최근 게시물</h2>
-                <div class="post">
-                    <h3><a href="#" aria-label="Linux 파일디스크 관련 명령어 게시물">Linux_파일디스크 사용량 관련 명령어(du, df)</a></h3>
-                    <p>리눅스 파일디스크 사용량 관련 명령어는 대표적으로 du, df가 있습니다...</p>
-                    <p><small>2024. 9. 18. | 카테고리: Linux</small></p>
-                </div>
-                <div class="post">
-                    <h3><a href="#" aria-label="Linux 서버 기동 관련 명령어 게시물">Linux_서버 기동 관련 명령어(shutdown, reboot)</a></h3>
-                    <p>서버 기동 관련 명령어는 shutdown, reboot, halt 등이 있습니다...</p>
-                    <p><small>2024. 9. 15. | 카테고리: Linux</small></p>
-                </div>
+                <div id="recentPosts"></div>
             </section>
         </div>
     </div>
@@ -88,24 +74,37 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // 게시물 데이터 (기존 데이터 예시)
-        const posts = [
+        // Load posts from localStorage or use default posts
+        const posts = JSON.parse(localStorage.getItem("posts")) || [
             { title: "Linux_파일디스크 사용량 관련 명령어(du, df)", category: "Linux", date: "2024. 9. 18.", excerpt: "리눅스 파일디스크 사용량 관련 명령어는 대표적으로 du, df가 있습니다..." },
             { title: "Linux_서버 기동 관련 명령어(shutdown, reboot)", category: "Linux", date: "2024. 9. 15.", excerpt: "서버 기동 관련 명령어는 shutdown, reboot, halt 등이 있습니다..." },
         ];
+        localStorage.setItem("posts", JSON.stringify(posts));
 
-        const postSection = document.querySelector(".row .col-lg-9 section");
+        // Render categories
+        const categoryCounts = posts.reduce((acc, post) => {
+            acc[post.category] = (acc[post.category] || 0) + 1;
+            return acc;
+        }, {});
+        const categoryList = document.getElementById("categoryList");
+        for (const [category, count] of Object.entries(categoryCounts)) {
+            const li = document.createElement("li");
+            li.className = "list-group-item";
+            li.innerHTML = `<a href="devArchive.html?category=${category}" aria-label="${category} 카테고리">${category} (${count})</a>`;
+            categoryList.appendChild(li);
+        }
 
-        // 동적으로 게시물 추가
-        posts.forEach(post => {
+        // Render recent posts
+        const recentPosts = document.getElementById("recentPosts");
+        posts.slice(0, 5).forEach(post => {
             const postDiv = document.createElement("div");
-            postDiv.classList.add("post");
+            postDiv.className = "post";
             postDiv.innerHTML = `
                 <h3><a href="#" aria-label="${post.title} 게시물">${post.title}</a></h3>
                 <p>${post.excerpt}</p>
-                <p><small>${post.date} | 카테고리: ${post.category}</small></p>
+                <p><small>${post.date} | 카테고리: <a href="devArchive.html?category=${post.category}">${post.category}</a></small></p>
             `;
-            postSection.appendChild(postDiv);
+            recentPosts.appendChild(postDiv);
         });
     });
 </script>

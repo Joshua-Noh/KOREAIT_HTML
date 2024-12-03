@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko">
+    <nav class="nav-bottom">
+        <a href="devMain.html">홈</a>
+        <a href="devCategory.html">카테고리</a>
+        <a href="devArchive.html">아카이브</a>
+        <a href="devVisit.html">방명록</a>
+    </nav>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,18 +45,37 @@
             font-size: 0.85rem;
             color: #868e96;
         }
+        .nav-bottom {
+            background: #343a40;
+            color: white;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .nav-bottom a {
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-bottom a:hover {
+            color: #ffc107;
+        }
+        body {
+            padding-bottom: 70px; /* 네비게이션 높이만큼 추가 여백 */
+        }
     </style>
+
 </head>
+
 <body>
-
-<!-- 공통 네비게이션 -->
-<nav>
-    <a href="devMain.html">홈</a>
-    <a href="devCategory.html">카테고리</a>
-    <a href="devArchive.html">아카이브</a>
-    <a href="devVisit.html">방명록</a>
-</nav>
-
 <header>
     <h1>노현우의 개발노트</h1>
     <p>방명록을 통해 개발 여정을 함께하세요.</p>
@@ -75,10 +100,14 @@
     </section>
 </div>
 
+
+
 <footer>
     <p>&copy; 2024 노현우의 개발노트</p>
     <p>Powered by HTML & CSS</p>
 </footer>
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

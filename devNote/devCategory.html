@@ -16,37 +16,24 @@
             margin: 0;
             padding: 0;
         }
-
         a {
             text-decoration: none;
             color: inherit;
         }
-
         a:hover {
             color: #007bff;
             text-decoration: underline;
         }
-
-        /* Header Styles */
         header {
             background: linear-gradient(90deg, #495057, #343a40);
             color: white;
             padding: 2rem 1rem;
             text-align: center;
         }
-
         header h1 {
             font-size: 2.8rem;
             font-weight: 700;
-            margin: 0.5rem 0;
         }
-
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-        }
-
-        /* Navigation Styles */
         nav {
             background: #343a40;
             display: flex;
@@ -54,19 +41,15 @@
             gap: 1.5rem;
             padding: 1rem 0;
         }
-
         nav a {
             color: white;
             font-size: 1rem;
             font-weight: bold;
             transition: color 0.3s;
         }
-
         nav a:hover {
             color: #ffc107;
         }
-
-        /* Category Section Styles */
         .category-section {
             background: white;
             border-radius: 8px;
@@ -74,154 +57,62 @@
             padding: 2rem;
             margin-top: 2rem;
         }
-
-        .category-section h2 {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .category-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
         .category-list li {
-            margin-bottom: 1rem;
             font-size: 1.2rem;
             border-bottom: 1px solid #e9ecef;
             padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
-
-        .category-list a {
-            color: #495057;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .category-list a:hover {
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        /* Footer Styles */
         footer {
             background: #495057;
             color: white;
             text-align: center;
             padding: 1.5rem 0;
-            margin-top: 2rem;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Back to AllAbout Button Styles */
-        .back-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #ffc107;
-            color: #343a40;
-            border: none;
-            padding: 0.8rem 1.2rem;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s, transform 0.2s;
-            cursor: pointer;
-            z-index: 1000;
-        }
-
-        .back-button:hover {
-            background: #e0a800;
-            transform: scale(1.05);
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            header p {
-                font-size: 1rem;
-            }
-
-            nav a {
-                font-size: 0.9rem;
-            }
-
-            .category-section {
-                padding: 1.5rem;
-            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>노현우의 개발노트</h1>
+        <p>데이터 엔지니어로 활동하면서 배우는 모든 과정을 기록하는 공간</p>
+    </header>
+    <nav>
+        <a href="devMain.html">홈</a>
+        <a href="devCategory.html">카테고리</a>
+        <a href="devArchive.html">아카이브</a>
+        <a href="devVisit.html">방명록</a>
+    </nav>
+    <div class="container mt-4">
+        <section class="category-section">
+            <h2>카테고리</h2>
+            <ul class="category-list" id="categoryList"></ul>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 노현우의 개발노트</p>
+    </footer>
+    <script>
+        // Load posts from localStorage or use defaults
+        const posts = JSON.parse(localStorage.getItem("posts")) || [
+            { title: "Linux_파일디스크 사용량 관련 명령어", category: "Linux" },
+            { title: "JavaScript_비동기 처리의 이해", category: "JavaScript" },
+            { title: "Python_기본 문법 정리", category: "Python" },
+        ];
+        localStorage.setItem("posts", JSON.stringify(posts));
 
-<!-- Back to AllAbout Button -->
-<button class="back-button" onclick="goToAllAbout()">All About으로 돌아가기</button>
+        // Count posts by category
+        const categoryCounts = posts.reduce((acc, post) => {
+            acc[post.category] = (acc[post.category] || 0) + 1;
+            return acc;
+        }, {});
 
-<header>
-    <h1>노현우의 개발노트</h1>
-    <p>데이터 엔지니어로 활동하면서 배우는 모든 과정을 기록하는 공간</p>
-</header>
-
-<nav>
-    <a href="devMain.html">홈</a>
-    <a href="devCategory.html">카테고리</a>
-    <a href="devArchive.html">아카이브</a>
-    <a href="devVisit.html">방명록</a>
-</nav>
-
-<div class="container mt-4">
-    <section class="category-section">
-        <h2>카테고리</h2>
-        <ul class="category-list" id="categoryList">
-            <!-- 동적으로 카테고리 목록 추가 -->
-        </ul>
-    </section>
-</div>
-
-<footer>
-    <p>&copy; 2024 노현우의 개발노트</p>
-    <p>Powered by HTML & CSS</p>
-</footer>
-
-<script>
-    // 게시물 데이터
-    const posts = [
-        { title: "Linux_파일디스크 사용량 관련 명령어(du, df)", category: "Linux" },
-        { title: "Linux_서버 기동 관련 명령어(shutdown, reboot, halt, poweroff)", category: "Linux" },
-        { title: "JavaScript_비동기 처리의 이해", category: "JavaScript" },
-        { title: "Python_기본 문법 정리", category: "Python" },
-        { title: "Java_객체지향 프로그래밍 이해", category: "Java" },
-    ];
-
-    // 카테고리별 게시물 수 계산
-    const categoryCounts = posts.reduce((acc, post) => {
-        acc[post.category] = (acc[post.category] || 0) + 1;
-        return acc;
-    }, {});
-
-    // 카테고리 동적으로 추가
-    const categoryList = document.getElementById("categoryList");
-    for (const [category, count] of Object.entries(categoryCounts)) {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="#">${category} (${count})</a>`;
-        categoryList.appendChild(li);
-    }
-
-    function goToAllAbout() {
-        window.location.href = "../allabout.html"; // 상위 폴더의 allabout.html로 이동
-    }
-</script>
+        // Render category list
+        const categoryList = document.getElementById("categoryList");
+        for (const [category, count] of Object.entries(categoryCounts)) {
+            const li = document.createElement("li");
+            li.innerHTML = `<a href="devArchive.html?category=${category}">${category} (${count})</a>`;
+            categoryList.appendChild(li);
+        }
+    </script>
 </body>
 </html>
