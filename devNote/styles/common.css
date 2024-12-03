@@ -1,0 +1,87 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', 'Noto Sans KR', sans-serif;
+    background: linear-gradient(to bottom, #f9fbfc, #eceff1);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* Header Styles */
+header {
+    background: linear-gradient(90deg, #495057, #343a40);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* Navigation Styles */
+nav {
+    background: #343a40;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+nav a {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ffc107;
+}
+
+/* Footer Styles */
+footer {
+    background: #495057;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    nav a {
+        font-size: 0.9rem;
+    }
+}

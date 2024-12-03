@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>H P M S 시스템</title>
+    <style>
+        /* 기본 스타일 */
+        .title {
+            margin-top: 50px;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #e0e0e0;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8), -2px -2px 15px rgba(255, 255, 255, 0.4);
+            position: relative;
+            cursor: pointer;
+            animation: fadeIn 3s ease; /* 부드러운 페이드 효과 */
+            transition: all 0.5s ease;
+        }
+
+        .title:hover {
+            content: "Hiring Procedure Management System";
+            font-size: 2rem;
+            color: #1a1919;
+        }
+
+        .title:hover::after {
+            content: "Hiring Procedure Management System";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: #131312;
+            white-space: nowrap;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: url('./images/background.png') no-repeat center top/cover;
+            animation: slideBackground 60s infinite alternate ease-in-out; /* 느리게 움직이는 배경 */
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 아이콘 그리드 */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .icon {
+            text-align: center;
+            animation: fadeInUp 2.5s ease; /* 느리게 올라오는 아이콘 */
+        }
+
+        .icon a {
+            text-decoration: none; /* 밑줄 제거 */
+            color: inherit; /* 텍스트 색상 상속 */
+            display: inline-block;
+            transform: scale(1);
+            transition: transform 0.2s ease; /* 축소 효과 */
+        }
+
+        .icon a:active {
+            transform: scale(0.9); /* 클릭 시 축소 효과 */
+        }
+
+        .icon img {
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5), inset -3px -3px 8px rgba(255, 255, 255, 0.3);
+            transition: transform 0.5s ease, box-shadow 0.5s ease; /* 부드러운 호버 효과 */
+            background: linear-gradient(145deg, #e0e0e0, #a0a0a0);
+        }
+
+        .icon img:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.7), inset -4px -4px 12px rgba(255, 255, 255, 0.4);
+        }
+
+        .icon p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: #ffffff;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 배경 슬라이드 애니메이션 */
+        @keyframes slideBackground {
+            0% {
+                background-position: center top;
+            }
+            50% {
+                background-position: center bottom;
+            }
+            100% {
+                background-position: center top;
+            }
+        }
+
+        /* 블랙홀 애니메이션 */
+        .blackhole-effect {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 20;
+            animation: shrinkBlackhole 1.5s ease-out forwards; /* 더 부드럽게 축소 */
+        }
+
+        @keyframes shrinkBlackhole {
+            0% {
+                transform: translate(-50%, -50%) scale(30);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- H P M S 타이틀 -->
+    <div class="title">H P M S</div>
+
+    <!-- 아이콘 그리드 -->
+    <div class="icon-grid">
+        <!-- 메일 및 채팅 -->
+        <div class="icon">
+            <a href="email.html">
+                <img src="./images/email-icon.png" alt="메일 및 채팅">
+                <p>메일 및 채팅</p>
+            </a>
+        </div>
+        <!-- 캘린더 -->
+        <div class="icon">
+            <a href="calendar.html">
+                <img src="./images/calendar-icon.png" alt="캘린더">
+                <p>캘린더</p>
+            </a>
+        </div>
+        <!-- HRM -->
+        <div class="icon">
+            <a href="hrm.html">
+                <img src="./images/management-icon.png" alt="HRM">
+                <p>HRM</p>
+            </a>
+        </div>
+        <!-- 채용 -->
+        <div class="icon">
+            <a href="recruit.html">
+                <img src="./images/recruit-icon.png" alt="채용">
+                <p>채용</p>
+            </a>
+        </div>
+        <!-- 앱 -->
+        <div class="icon">
+            <a href="app.html">
+                <img src="./images/app-icon.png" alt="앱">
+                <p>앱</p>
+            </a>
+        </div>
+        <!-- 설정 -->
+        <div class="icon">
+            <a href="settings.html">
+                <img src="./images/settings-icon.png" alt="설정">
+                <p>설정</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- 블랙홀 효과 -->
+    <div class="blackhole-effect" id="blackhole"></div>
+
+    <footer class="footer">
+        <p>&copy; 2024 HPMS. All rights reserved.</p>
+        <p>Unauthorized duplication, modification, or distribution is prohibited.</p>
+        <p id="date-time"></p>
+    </footer>
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById("date-time").textContent = now.toLocaleString("ko-KR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+            });
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        const blackhole = document.getElementById('blackhole');
+        
+        // login.html에서 왔는지 확인
+        if (document.referrer.includes('login.html')) {
+            blackhole.style.display = 'block'; // 블랙홀 활성화
+            setTimeout(() => {
+                blackhole.style.display = 'none'; // 블랙홀 효과 숨김
+            }, 1500); // 애니메이션이 끝난 후 블랙홀 제거
+        } else {
+            blackhole.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

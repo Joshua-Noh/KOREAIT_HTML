@@ -1,0 +1,27 @@
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 최적화 */
+    border-radius: 8px;
+    overflow: hidden; /* 이미지와 카드 배경을 맞춤 */
+}
+.card-img-top {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    object-fit: cover; /* 이미지 비율 유지 */
+    width: 100%; /* 부모의 크기에 맞춤 */
+    height: auto; /* 자동 높이 */
+}
+.card:hover {
+    transform: translateY(-5px); /* 호버 효과 */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* 호버 시 강조 */
+    transition: transform 0.2s, box-shadow 0.2s; /* 부드러운 전환 */
+}
+@media (max-width: 768px) {
+    .card {
+        margin: 0.5rem; /* 작은 화면에서 간격 줄임 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* 작은 그림자 */
+    }
+    .card-img-top {
+        height: auto; /* 작은 화면에서 이미지 비율 유지 */
+    }
+}

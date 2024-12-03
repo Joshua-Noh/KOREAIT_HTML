@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 - H P M S</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: url('./images/background.png') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 로그인 컨테이너 */
+        .login-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease;
+            position: relative;
+            z-index: 10;
+            transition: transform 1s ease-in-out, opacity 0.8s ease-in-out;
+        }
+
+        .login-container h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container input {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(145deg, #d1d1d1, #f7f7f7);
+            box-shadow: inset -3px -3px 8px rgba(255, 255, 255, 0.7), inset 3px 3px 8px rgba(0, 0, 0, 0.15);
+            color: #333;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-container input:focus {
+            box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.8), inset 2px 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-container button {
+            padding: 12px 15px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .login-container .forgot-password {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .login-container .forgot-password a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .login-container .forgot-password a:hover {
+            color: #0056b3;
+        }
+
+        /* 블랙홀 효과 */
+        @keyframes blackhole {
+            0% {
+                transform: scale(1);
+                opacity: 0.6; /* 더 투명하게 시작 */
+            }
+            100% {
+                transform: scale(30);
+                opacity: 0; /* 완전히 사라짐 */
+            }
+        }
+
+        .blackhole-effect {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.4); /* 더욱 투명한 블랙 */
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 20;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>로그인</h1>
+        <form id="login-form">
+            <!-- 기본값 추가 -->
+            <input type="email" name="email" placeholder="이메일" value="koreait@test.com" required>
+            <input type="password" name="password" placeholder="비밀번호" value="1234" required>
+            <button type="submit">로그인</button>
+        </form>
+        <div class="forgot-password">
+            <a href="/forgot-password">비밀번호를 잊으셨나요?</a>
+        </div>
+    </div>
+    <div class="blackhole-effect" id="blackhole"></div>
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const blackhole = document.getElementById('blackhole');
+        const loginContainer = document.querySelector('.login-container');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // 기본 폼 제출 방지
+
+            // 블랙홀 확장 애니메이션
+            blackhole.style.animation = 'blackhole 0.8s ease-in-out forwards';
+
+            // 로그인 컨테이너 축소 및 사라짐 효과
+            loginContainer.style.transform = 'scale(0)';
+            loginContainer.style.opacity = '0';
+
+            // 1초 후 메인 페이지로 이동
+            setTimeout(() => {
+                window.location.href = 'main.html'; // 메인 페이지로 이동
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

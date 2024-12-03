@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me - Joshua Roh</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Nanum+Brush+Script&family=Noto+Sans+KR:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(45deg, #0077b6, #00b4d8, #90e0ef);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    header h1 {
+      font-family: 'Nanum Brush Script', cursive;
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 0;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    header p {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .container {
+      max-width: 85%;
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      padding: 2rem;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      flex-grow: 1;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .about-section {
+      margin: 2rem 0;
+    }
+
+    .about-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .about-section p {
+      font-size: 1rem;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .resources {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: rgba(0, 119, 182, 0.8);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      font-family: 'Roboto', sans-serif;
+      text-decoration: none;
+      font-size: 1rem;
+      border-radius: 50px;
+      margin: 0 10px;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #00b4d8;
+      transform: translateY(-5px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      margin-top: auto;
+      width: 100%;
+    }
+
+    footer a {
+      color: #00b4d8;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #ff77aa;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Who am I?</h1>
+    <p>안녕하세요, Joshua Roh입니다! 끊임없는 도전을 통해 세상을 바꾸는 개발자가 되고자 합니다.</p>
+  </header>
+
+  <div class="container">
+    <div class="about-section">
+      <h2>About Me</h2>
+      <p>
+        저는 창의적이고 열정적인 개발자로서, 새로운 기술과 아이디어를 탐구하는 것을 좋아합니다.
+        국비 과정을 통해 전문적인 소프트웨어 개발 지식을 습득했으며, Java, Python, HTML/CSS와 같은 언어와 기술에 능숙합니다.
+      </p>
+      <p>
+        여가 시간에는 독서를 즐기고, 팀 활동과 코딩 챌린지에 참여하며 다양한 문제 해결 경험을 쌓고 있습니다.
+        기술을 통해 사회에 긍정적인 영향을 미치는 것을 목표로 삼고 있습니다.
+      </p>
+    </div>
+
+    <div class="resources">
+      <a href="resume.pdf" target="_blank" class="btn">📄 이력서 보기</a>
+      <a href="projects.html" class="btn">💻 진행한 프로젝트</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      &copy; 2024 Joshua Roh. 모든 권리 보유.<br>
+      이 페이지의 내용과 디자인은 저작권법에 의해 보호받으며, 무단 도용 및 재배포를 금합니다.<br>
+      문의 사항: <a href="mailto:contact@joshua.com">contact@joshua.com</a>
+    </p>
+  </footer>
+</body>
+
+</html>

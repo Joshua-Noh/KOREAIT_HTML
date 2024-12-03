@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="노현우의 개발노트 방명록에서 메시지를 남기고 다른 사람의 메시지를 확인하세요.">
+    <meta name="author" content="OHSAYU">
+    <title>방명록 - 노현우의 개발노트</title>
+    <link rel="stylesheet" href="styles/common.css">
+    <style>
+        .guestbook {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        .guestbook-form textarea {
+            resize: none;
+            height: 120px;
+        }
+        .messages {
+            margin-top: 2rem;
+        }
+        .message {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .message p {
+            margin: 0;
+            color: #495057;
+        }
+        .message small {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #868e96;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 공통 네비게이션 -->
+<nav>
+    <a href="devMain.html">홈</a>
+    <a href="devCategory.html">카테고리</a>
+    <a href="devArchive.html">아카이브</a>
+    <a href="devVisit.html">방명록</a>
+</nav>
+
+<header>
+    <h1>노현우의 개발노트</h1>
+    <p>방명록을 통해 개발 여정을 함께하세요.</p>
+</header>
+
+<div class="container mt-4">
+    <section class="guestbook">
+        <h2>방명록</h2>
+        <form class="guestbook-form" onsubmit="addMessage(event)">
+            <div class="mb-3">
+                <textarea class="form-control" id="messageInput" placeholder="메시지를 작성하세요" required aria-label="방명록 메시지 작성란"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" aria-label="메시지 작성 버튼">메시지 작성</button>
+        </form>
+        <div class="messages mt-4" id="messageList">
+            <!-- 기본 메시지 (JavaScript 비활성화 대비) -->
+            <div class="message">
+                <p>이 사이트 정말 유익합니다!</p>
+                <small>작성 시간: 2024. 9. 15. 12:34</small>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 노현우의 개발노트</p>
+    <p>Powered by HTML & CSS</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const messageInput = document.getElementById("messageInput");
+        const messageList = document.getElementById("messageList");
+
+        // Load messages from localStorage
+        const messages = JSON.parse(localStorage.getItem("guestbookMessages")) || [];
+
+        // Render messages
+        const renderMessages = () => {
+            messageList.innerHTML = "";
+            messages.forEach((msg) => {
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message");
+                messageDiv.innerHTML = `
+                    <p>${msg.text}</p>
+                    <small>작성 시간: ${msg.time}</small>
+                `;
+                messageList.insertBefore(messageDiv, messageList.firstChild);
+            });
+        };
+
+        // Add message
+        const addMessage = (event) => {
+            event.preventDefault();
+            if (messageInput.value.trim() !== "") {
+                const newMessage = {
+                    text: messageInput.value,
+                    time: new Date().toLocaleString("ko-KR"),
+                };
+                messages.push(newMessage);
+                localStorage.setItem("guestbookMessages", JSON.stringify(messages));
+                renderMessages();
+                messageInput.value = "";
+            }
+        };
+
+        renderMessages();
+
+        // Attach event listener
+        document.querySelector(".guestbook-form").addEventListener("submit", addMessage);
+    });
+</script>
+</body>
+</html>

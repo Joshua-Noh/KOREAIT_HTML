@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메일 및 채팅</title>
+    <style>
+        /* 전체 레이아웃 */
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #f3f4f7, #e1e5eb);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 상단 네비게이션 바 */
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .navbar .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .user-info a {
+            display: inline-block; /* 아이콘에 애니메이션 적용을 위해 추가 */
+            transition: transform 0.3s ease; /* 이동 애니메이션 */
+        }
+
+        .navbar .user-info a:hover {
+            transform: translateX(-10px); /* 왼쪽으로 이동하는 효과 */
+        }
+
+        .navbar .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer; /* 클릭 가능한 아이콘으로 변경 */
+        }
+
+        .navbar .user-info span {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* 메인 컨테이너 */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* 사이드바 */
+        .sidebar {
+            width: 240px;
+            background: linear-gradient(135deg, #ffffff, #f7f7f7);
+            border-right: 1px solid #ddd;
+            padding: 20px 10px;
+            box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar .menu li {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .sidebar .menu li:hover {
+            color: #007bff;
+            transform: translateX(5px);
+        }
+
+        .sidebar .menu li img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        /* 메인 콘텐츠 */
+        .content {
+            flex: 1;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .content h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .content p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 하단 푸터 */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <div class="navbar">
+        <div class="logo">메일 및 채팅</div>
+        <div class="user-info">
+            <!-- 메인 페이지로 돌아가는 링크 추가 -->
+            <a href="main.html">
+                <img src="./images/user-icon.png" alt="User">
+            </a>
+            <span>KOREAIT</span>
+        </div>
+    </div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <!-- 사이드바 -->
+        <div class="sidebar">
+            <ul class="menu">
+                <li><img src="./icons/inbox-icon.png" alt="수신함">수신함</li>
+                <li><img src="./icons/star-icon.png" alt="별표">별표</li>
+                <li><img src="./icons/record-icon.png" alt="기록">기록</li>
+                <li><img src="./icons/admin-icon.png" alt="관리자">관리자</li>
+                <li><img src="./icons/direct-icon.png" alt="다이렉트 메시지">다이렉트 메시지</li>
+            </ul>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="content">
+            <h2>받은 편지함이 비어 있습니다.</h2>
+            <p>받은 편지함에서 새 알림을 받으려면 환경설정을 변경하세요.</p>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer>
+        &copy; 2024 KOREAIT. All rights reserved.
+    </footer>
+</body>
+</html>

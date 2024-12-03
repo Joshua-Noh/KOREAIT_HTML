@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intro Page</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Nanum+Brush+Script&family=Noto+Sans+KR:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(45deg, #ff6f61, #0077b6, #00b4d8);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: white;
+      overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    header h1 {
+      font-family: 'Nanum Brush Script', cursive;
+      font-size: 3.2rem;
+      font-weight: bold;
+      margin: 0;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+      animation: waveEffect 4s infinite alternate;
+    }
+
+    header p {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2rem;
+      margin: 1rem 0 0;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes waveEffect {
+      0%, 100% {
+        color: #fff;
+      }
+      50% {
+        color: #ff77aa;
+      }
+    }
+
+    .container {
+      padding: 1.5rem;
+      max-width: 85%;
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .profile {
+      text-align: center;
+    }
+
+    .profile img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      margin-bottom: 1rem;
+      border: 4px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile img:hover {
+      transform: rotate(-3deg) scale(1.1);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+    }
+
+    .profile a {
+      display: block;
+      margin-top: 0.5rem;
+      color: #00b4d8;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .profile a:hover {
+      color: #ff77aa;
+      text-shadow: 0 0 5px #ff77aa;
+    }
+
+    .cta {
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+
+    .cta a {
+      font-family: 'Roboto', sans-serif;
+      display: inline-block;
+      background-color: rgba(0, 119, 182, 0.8);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      text-decoration: none;
+      font-size: 1rem;
+      border-radius: 50px;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .cta a:hover {
+      background-color: #00b4d8;
+      transform: translateY(-5px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+
+    footer:hover {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    footer a {
+      color: #00b4d8;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #ff77aa;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>실력과 열정을 더해, 내일의 코드를 만듭니다.</h1>
+    <p>끊임없이 성장하며, 팀의 목표를 함께 이뤄가는 개발자가 되고 싶습니다.</p>
+  </header>
+
+  <div class="container">
+    <div class="profile">
+      <!-- 프로필 사진 및 링크 추가 -->
+      <a href="java_framework_page.html" title="JAVA 프레임워크 작업 화면으로 이동">
+        <img src="https://via.placeholder.com/150" alt="Profile Picture">
+      </a>
+      <a href="java_framework_page.html">이미지를 클릭하면 JAVA 프레임워크로 작업한 화면으로 이동합니다.</a>
+      <h2>Joshua Roh</h2>
+      <p>
+        안녕하세요! 저는 국비 과정을 통해 개발자의 길을 걷고 있는 Joshua Roh입니다.<br>
+        새로운 도전을 통해 세상을 바꿀 창의적인 솔루션을 만들고 싶습니다.
+      </p>
+    </div>
+
+    <div class="cta">
+      <a href="main.html" id="whoami-btn">Who am I?</a>
+    </div>
+  </div>
+
+  <div class="blackhole"></div>
+
+  <footer>
+    <p>
+      &copy; 2024 Joshua Roh. 모든 권리 보유.<br>
+      이 페이지의 내용과 디자인은 저작권법에 의해 보호받으며, 무단 도용 및 재배포를 금합니다.<br>
+      문의 사항: <a href="mailto:contact@joshua.com">contact@joshua.com</a>
+    </p>
+  </footer>
+</body>
+
+</html>

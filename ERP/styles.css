@@ -1,0 +1,79 @@
+/* Footer 스타일 */
+.footer {
+    position: fixed;
+    bottom: -50px; /* 초기 위치를 화면 아래로 설정 */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 10px 0;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    animation: slideUp 1.2s ease forwards 1s; /* 1초 딜레이 후 애니메이션 시작 */
+}
+
+    
+    @keyframes slideUp {
+        from {
+            bottom: -50px;
+            opacity: 0;
+        }
+        to {
+            bottom: 0;
+            opacity: 1;
+        }
+    }
+    
+
+
+.footer p {
+    margin: 5px 0; /* 텍스트 간격 */
+}
+
+
+body {
+    background: url('./images/background.png') no-repeat center center;
+    background-attachment: fixed;
+    background-size: cover;
+    animation: backgroundScroll 15s linear infinite;
+    cursor: url('./images/custom-cursor.png'), auto; /* 기본 커서로 사용자 정의 커서 적용 */
+}
+
+@keyframes backgroundScroll {
+    from {
+        background-position: center top;
+    }
+    to {
+        background-position: center bottom;
+    }
+}
+
+a {
+    cursor: pointer; /* 클릭 가능한 요소 커서 */
+}
+
+button {
+    cursor: url('./images/custom-click-cursor.png'), pointer; /* 버튼 클릭 시 커서 */
+}
+.title {
+    position: relative;
+    color: #e0e0e0;
+    font-size: 3rem;
+    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8), -2px -2px 15px rgba(255, 255, 255, 0.4);
+    animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
+    }
+    50% {
+        text-shadow: -2px -2px 15px rgba(255, 0, 0, 0.8), 2px 2px 15px rgba(0, 255, 0, 0.8);
+    }
+    100% {
+        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
+    }
+}
+

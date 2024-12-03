@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="노현우의 개발노트 - 홈 페이지에서 최신 게시물과 카테고리를 확인하세요.">
+    <meta name="author" content="OHSAYU">
+    <title>홈 - 노현우의 개발노트</title>
+    <link rel="stylesheet" href="styles/common.css">
+    <style>
+        .post {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        .post h3 a {
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .post p {
+            font-size: 1rem;
+            color: #555;
+        }
+        .post small {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 공통 네비게이션 -->
+<nav>
+    <a href="devMain.html">홈</a>
+    <a href="devCategory.html">카테고리</a>
+    <a href="devArchive.html">아카이브</a>
+    <a href="devVisit.html">방명록</a>
+</nav>
+
+<header>
+    <h1>노현우의 개발노트</h1>
+    <p>최신 게시물과 카테고리를 확인하세요.</p>
+</header>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sidebar Section -->
+        <aside class="col-lg-3 col-md-4 col-sm-12">
+            <h3>카테고리</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#" aria-label="알고리즘 카테고리">알고리즘 (10)</a></li>
+                <li class="list-group-item"><a href="#" aria-label="프로그래밍 언어 카테고리">프로그래밍 언어 (95)</a></li>
+                <li class="list-group-item"><a href="#" aria-label="운영체제 카테고리">운영체제 (38)</a></li>
+                <li class="list-group-item"><a href="#" aria-label="프로젝트 카테고리">프로젝트 (1)</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Section -->
+        <div class="col-lg-9 col-md-8 col-sm-12">
+            <section>
+                <h2>최근 게시물</h2>
+                <div class="post">
+                    <h3><a href="#" aria-label="Linux 파일디스크 관련 명령어 게시물">Linux_파일디스크 사용량 관련 명령어(du, df)</a></h3>
+                    <p>리눅스 파일디스크 사용량 관련 명령어는 대표적으로 du, df가 있습니다...</p>
+                    <p><small>2024. 9. 18. | 카테고리: Linux</small></p>
+                </div>
+                <div class="post">
+                    <h3><a href="#" aria-label="Linux 서버 기동 관련 명령어 게시물">Linux_서버 기동 관련 명령어(shutdown, reboot)</a></h3>
+                    <p>서버 기동 관련 명령어는 shutdown, reboot, halt 등이 있습니다...</p>
+                    <p><small>2024. 9. 15. | 카테고리: Linux</small></p>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 노현우의 개발노트</p>
+    <p>Powered by HTML & CSS</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 게시물 데이터 (기존 데이터 예시)
+        const posts = [
+            { title: "Linux_파일디스크 사용량 관련 명령어(du, df)", category: "Linux", date: "2024. 9. 18.", excerpt: "리눅스 파일디스크 사용량 관련 명령어는 대표적으로 du, df가 있습니다..." },
+            { title: "Linux_서버 기동 관련 명령어(shutdown, reboot)", category: "Linux", date: "2024. 9. 15.", excerpt: "서버 기동 관련 명령어는 shutdown, reboot, halt 등이 있습니다..." },
+        ];
+
+        const postSection = document.querySelector(".row .col-lg-9 section");
+
+        // 동적으로 게시물 추가
+        posts.forEach(post => {
+            const postDiv = document.createElement("div");
+            postDiv.classList.add("post");
+            postDiv.innerHTML = `
+                <h3><a href="#" aria-label="${post.title} 게시물">${post.title}</a></h3>
+                <p>${post.excerpt}</p>
+                <p><small>${post.date} | 카테고리: ${post.category}</small></p>
+            `;
+            postSection.appendChild(postDiv);
+        });
+    });
+</script>
+</body>
+</html>

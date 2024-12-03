@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>임직원 관리</title>
+    <style>
+        /* 전체 레이아웃 */
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #f9f9f9, #e6e6e6);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 상단 네비게이션 바 */
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .navbar .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .user-info a {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar .user-info a:hover {
+            transform: translateX(-10px);
+        }
+
+        .navbar .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .navbar .user-info span {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* 메인 컨테이너 */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* 사이드바 */
+        .sidebar {
+            width: 240px;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            padding: 20px 10px;
+            box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar .menu li {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .sidebar .menu li:hover {
+            color: #007bff;
+            transform: translateX(5px);
+        }
+
+        /* 콘텐츠 영역 */
+        .content-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-color: #fefefe;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .content-header h2 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .content-header button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .content-header button:hover {
+            background-color: #0056b3;
+        }
+
+        .employee-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .employee-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .employee-item:last-child {
+            border-bottom: none;
+        }
+
+        .employee-item .info {
+            display: flex;
+            align-items: center;
+        }
+
+        .employee-item .info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #f0f0f0;
+        }
+
+        .employee-item .info div {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .employee-item .email {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* 하단 푸터 */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <div class="navbar">
+        <div class="logo">임직원 관리</div>
+        <div class="user-info">
+            <a href="main.html">
+                <img src="./images/user-icon.png" alt="User">
+            </a>
+            <span>KOREAIT</span>
+        </div>
+    </div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="main-container">
+        <!-- 사이드바 -->
+        <div class="sidebar">
+            <ul class="menu">
+                <li>부서</li>
+                <li>전체</li>
+                <li>경영관리</li>
+            </ul>
+        </div>
+
+        <!-- 콘텐츠 -->
+        <div class="content-container">
+            <div class="content-header">
+                <h2>임직원 목록</h2>
+                <button>신규</button>
+            </div>
+            <div class="employee-list">
+                <div class="employee-item">
+                    <div class="info">
+                        <img src="./images/user-placeholder.png" alt="Employee">
+                        <div>노현우</div>
+                    </div>
+                    <div class="email">sunkaan@hanmail.net</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer>
+        &copy; 2024 KOREAIT. All rights reserved.
+    </footer>
+</body>
+</html>
