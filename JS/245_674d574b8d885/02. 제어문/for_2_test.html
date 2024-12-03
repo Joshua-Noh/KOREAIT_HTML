@@ -10,7 +10,19 @@
 .aqua{color: #0ff;}
 </style>
 <script>
-
+    // for문을 이용하여 1부터 100까지\
+    // 5배수 빨간색, 7배수 초록색, 5의배수 && 7의배수 아쿠아색
+    for(var i = 1; i <= 100; i++){
+        if(i % 5 == 0 && i % 7 !== 0) {
+            document.write("<p class='red'>"+ i+ "</p>");
+        }
+        else if(i % 5 == 0 && i % 7 == 0){
+            document.write("<p class='aqua'>"+ i+ "</p>");
+        }else if(i % 5 !== 0 && i % 7 == 0) {
+            document.write("<p class='green'>"+ i+ "</p>");
+        };
+       
+    };
 </script>
 </head>
 <body>

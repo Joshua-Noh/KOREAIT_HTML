@@ -4,8 +4,16 @@
 <meta charset="UTF-8">
 <title> while문 </title>
 <script>
-	var i=1;
+    var i = 1; // 반복 변수 i 초기화
 
+    // while 문 (반복 조건)
+    while (i <= 30) {
+        // i가 2의 배수이면서 6의 배수일 경우 출력
+        if (i % 2 == 0 && i % 6 == 0) {
+            document.write(i + "<br>"); // i 출력 및 줄바꿈
+        }
+        i++; // i 증가
+    }
 </script>
 </head>
 <body>
