@@ -6,10 +6,12 @@
 <script>
 	var today = new Date();
 	var nowYear = today.getFullYear();
-	
+	console.leg(nowYear);
 	var theDate = new Date(nowYear, 11, 31);
 	var diffDate = theDate.getTime( ) - today.getTime( );
 	
+	// Math.ceil : 소수점 첫째 자리에서 무조건 올림하여 정수를 반환.
+	// (60초* 1000밀리초 * 60분 * 24시간) 하루를 밀리초 단위로 변환
 	var result = Math.ceil( diffDate / (60 * 1000 * 60 * 24) );
 	document.write("<h1>오늘부터 올해 연말까지 남은 날짜</h1>");
 	document.write("D-day: " + result + "일 남았습니다.");

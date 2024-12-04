@@ -7,6 +7,17 @@
 	var addNum = 0;
 	var subNum = 1000;
 
+    // 3초 간격으로 반복 실행하는 객체
+    var auto_1 = setInterval( function(){
+        addNum++;
+        console.log("addNum: " + addNum);
+    }, 3000);
+    
+    var auto_2 = setInterval( function(){
+        addNum++;
+        console.log("subNum: " + subNum);
+    }, 3000);
+
 </script>
 </head>
 <body>
