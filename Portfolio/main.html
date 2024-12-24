@@ -131,6 +131,12 @@
       text-decoration: underline;
     }
   </style>
+  <script>
+    // projects.html을 새 창으로 열기
+    function openProjects() {
+      window.open("projects.html", "Projects", "width=800,height=600,resizable=yes");
+    }
+  </script>
 </head>
 
 <body>
@@ -154,7 +160,7 @@
 
     <div class="resources">
       <a href="resume.pdf" target="_blank" class="btn">📄 이력서 보기</a>
-      <a href="projects.html" class="btn">💻 진행한 프로젝트</a>
+      <button onclick="openProjects()" class="btn">💻 진행한 프로젝트</button>
     </div>
   </div>
 

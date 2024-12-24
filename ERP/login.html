@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -127,7 +127,7 @@
             <button type="submit">로그인</button>
         </form>
         <div class="forgot-password">
-            <a href="/forgot-password">비밀번호를 잊으셨나요?</a>
+            <a href="#" id="forgot-password-link">비밀번호를 잊으셨나요?</a>
         </div>
     </div>
     <div class="blackhole-effect" id="blackhole"></div>
@@ -135,6 +135,7 @@
         const loginForm = document.getElementById('login-form');
         const blackhole = document.getElementById('blackhole');
         const loginContainer = document.querySelector('.login-container');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
 
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault(); // 기본 폼 제출 방지
@@ -150,6 +151,11 @@
             setTimeout(() => {
                 window.location.href = 'main.html'; // 메인 페이지로 이동
             }, 1000);
+        });
+
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault(); // 기본 링크 동작 방지
+            window.open('forgot-password.html', '비밀번호 찾기', 'width=500,height=600');
         });
     </script>
 </body>

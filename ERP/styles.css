@@ -1,3 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+/* 공통 스타일 */
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: url('./images/background.png') no-repeat center center/cover;
+    animation: slideBackground 60s infinite alternate ease-in-out; /* 느리게 움직이는 배경 */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    overflow: hidden;
+    cursor: url('./images/custom-cursor.png'), auto; /* 기본 커서로 사용자 정의 커서 적용 */
+}
+
+@keyframes slideBackground {
+    0% {
+        background-position: center top;
+    }
+    50% {
+        background-position: center bottom;
+    }
+    100% {
+        background-position: center top;
+    }
+}
+
+a {
+    cursor: pointer; /* 클릭 가능한 요소 커서 */
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 텍스트 색상 상속 */
+    display: inline-block;
+    transform: scale(1);
+    transition: transform 0.2s ease; /* 축소 효과 */
+}
+
+a:active {
+    transform: scale(0.9); /* 클릭 시 축소 효과 */
+}
+
+button {
+    cursor: url('./images/custom-click-cursor.png'), pointer; /* 버튼 클릭 시 커서 */
+}
+
 /* Footer 스타일 */
 .footer {
     position: fixed;
@@ -14,66 +61,159 @@
     animation: slideUp 1.2s ease forwards 1s; /* 1초 딜레이 후 애니메이션 시작 */
 }
 
-    
-    @keyframes slideUp {
-        from {
-            bottom: -50px;
-            opacity: 0;
-        }
-        to {
-            bottom: 0;
-            opacity: 1;
-        }
+@keyframes slideUp {
+    from {
+        bottom: -50px;
+        opacity: 0;
     }
-    
-
+    to {
+        bottom: 0;
+        opacity: 1;
+    }
+}
 
 .footer p {
     margin: 5px 0; /* 텍스트 간격 */
 }
 
-
-body {
-    background: url('./images/background.png') no-repeat center center;
-    background-attachment: fixed;
-    background-size: cover;
-    animation: backgroundScroll 15s linear infinite;
-    cursor: url('./images/custom-cursor.png'), auto; /* 기본 커서로 사용자 정의 커서 적용 */
-}
-
-@keyframes backgroundScroll {
-    from {
-        background-position: center top;
-    }
-    to {
-        background-position: center bottom;
-    }
-}
-
-a {
-    cursor: pointer; /* 클릭 가능한 요소 커서 */
-}
-
-button {
-    cursor: url('./images/custom-click-cursor.png'), pointer; /* 버튼 클릭 시 커서 */
-}
-.title {
-    position: relative;
-    color: #e0e0e0;
-    font-size: 3rem;
-    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8), -2px -2px 15px rgba(255, 255, 255, 0.4);
-    animation: glitch 2s infinite;
-}
-
-@keyframes glitch {
+/* 블랙홀 애니메이션 */
+@keyframes shrinkBlackhole {
     0% {
-        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
-    }
-    50% {
-        text-shadow: -2px -2px 15px rgba(255, 0, 0, 0.8), 2px 2px 15px rgba(0, 255, 0, 0.8);
+        transform: translate(-50%, -50%) scale(30);
+        opacity: 1;
     }
     100% {
-        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
     }
 }
 
+.blackhole-effect {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 20;
+    animation: shrinkBlackhole 1.5s ease-out forwards; /* 더 부드럽게 축소 */
+}
+
+/* 로그인 페이지 스타일 */
+.login-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 1s ease;
+    position: relative;
+    z-index: 10;
+    transition: transform 1s ease-in-out, opacity 0.8s ease-in-out;
+}
+
+.login-container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container input {
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(145deg, #d1d1d1, #f7f7f7);
+    box-shadow: inset -3px -3px 8px rgba(255, 255, 255, 0.7), inset 3px 3px 8px rgba(0, 0, 0, 0.15);
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.login-container input:focus {
+    box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.8), inset 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.login-container button {
+    padding: 12px 15px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.login-container .forgot-password {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.login-container .forgot-password a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-container .forgot-password a:hover {
+    color: #0056b3;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .icon-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .login-container {
+        padding: 20px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .icon-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .login-container {
+        padding: 15px 20px;
+    }
+}

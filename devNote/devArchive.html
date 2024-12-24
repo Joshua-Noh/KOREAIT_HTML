@@ -6,113 +6,177 @@
     <meta name="description" content="노현우의 개발노트 - 아카이브 페이지에서 모든 게시물을 시간 순으로 확인하세요.">
     <meta name="author" content="OHSAYU">
     <title>아카이브 - 노현우의 개발노트</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <!-- Common Styles -->
+    <link rel="stylesheet" href="styles/common.css">
+    <!-- jQuery 라이브러리 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery UI (애니메이션 효과를 위한 추가 라이브러리) -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style>
-        /* Global Styles */
-        body {
-            font-family: 'Roboto', 'Noto Sans KR', sans-serif;
-            background: linear-gradient(to bottom, #f9fbfc, #eceff1);
-            color: #333;
-            margin: 0;
-            padding: 0;
+        /* 추가적인 CSS 스타일 */
+        .category-list li {
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* 부드러운 배경색 전환 */
         }
-        a {
-            text-decoration: none;
-            color: inherit;
+        /* CSS 호버 효과 제거하여 jQuery가 관리하도록 함 */
+        /* .category-list li:hover {
+            background-color: #f8f9fa;
+        } */
+
+        /* 폼 입력 필드 애니메이션 */
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 8px rgba(128, 189, 255, 0.5);
         }
-        a:hover {
+
+        /* 테이블 행 호버 애니메이션 */
+        .archive-table tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        /* 삭제 버튼 스타일 */
+        .delete-post-btn {
+            color: #dc3545;
+            cursor: pointer;
+            display: none; /* 기본적으로 숨김 */
+        }
+
+        /* 삭제 버튼 호버 효과 */
+        .delete-post-btn:hover {
+            color: #a71d2a;
+        }
+
+        /* 애니메이션용 클래스 */
+        .animated-row {
+            animation: highlight 2s ease;
+        }
+
+        @keyframes highlight {
+            from { background-color: #ffffcc; }
+            to { background-color: transparent; }
+        }
+
+        /* 캡차 리프레시 버튼 스타일 */
+        .refresh-captcha {
+            cursor: pointer;
             color: #007bff;
+            margin-left: 10px;
+        }
+
+        .refresh-captcha:hover {
             text-decoration: underline;
         }
-        header {
-            background: linear-gradient(90deg, #495057, #343a40);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
+
+        /* 정렬 버튼 스타일 */
+        .sort-btn {
+            cursor: pointer;
+            margin-left: 10px;
+            color: #007bff;
         }
-        header h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
+
+        .sort-btn:hover {
+            text-decoration: underline;
         }
-        nav {
-            background: #343a40;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            padding: 1rem 0;
+
+        /* 검색 입력 필드 애니메이션 */
+        #searchInput {
+            transition: width 0.4s ease-in-out;
+            width: 200px;
         }
-        nav a {
-            color: white;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: color 0.3s;
+
+        #searchInput:focus {
+            width: 300px;
         }
-        nav a:hover {
-            color: #ffc107;
+
+        /* 추가된 알림 스타일 */
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            display: none;
         }
-        .archive-section {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-top: 2rem;
+
+        /* 상세보기 섹션 스타일 */
+        .detail-row {
+            display: none;
+            background-color: #f9f9f9;
         }
-        .archive-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
+
+        .detail-content {
+            padding: 10px;
         }
-        .archive-table th, .archive-table td {
-            border: 1px solid #e9ecef;
-            text-align: center;
-            padding: 0.8rem;
+
+        /* 페이징 버튼 스타일 */
+        .pagination-btn {
+            cursor: pointer;
+            color: #007bff;
+            margin: 0 5px;
         }
-        .archive-table th {
-            background-color: #495057;
-            color: white;
-        }
-        .archive-table tbody tr:hover {
-            background-color: #f1f3f5;
-        }
-        footer {
-            background: #495057;
-            color: white;
-            text-align: center;
-            padding: 1.5rem 0;
+
+        .pagination-btn:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+    <!-- 헤더 -->
     <header>
-        <h1>노현우의 개발노트 - 아카이브</h1>
+        <h1>노현우의 개발노트</h1>
         <p>게시물을 시간 순으로 확인할 수 있는 아카이브 페이지</p>
     </header>
+
+    <!-- 네비게이션 바 -->
     <nav>
         <a href="devMain.html">홈</a>
         <a href="devCategory.html">카테고리</a>
-        <a href="devArchive.html">아카이브</a>
+        <a href="devArchive.html" class="active">아카이브</a>
         <a href="devVisit.html">방명록</a>
     </nav>
+
+    <!-- 메인 콘텐츠 -->
     <div class="container mt-4">
-        <section class="archive-section">
+        <!-- 게시물 목록 섹션 -->
+        <section class="section archive-section">
             <h2>게시물 목록</h2>
-            <table class="archive-table">
+            <!-- 검색 및 정렬 옵션 -->
+            <div class="d-flex justify-content-between mb-3">
+                <input type="text" id="searchInput" class="form-control" placeholder="게시물 검색..." aria-label="게시물 검색 입력란">
+                <div>
+                    정렬:
+                    <span class="sort-btn" data-sort="date">날짜</span> |
+                    <span class="sort-btn" data-sort="views">조회수</span>
+                </div>
+            </div>
+            <table class="archive-table table table-bordered">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>제목</th>
                         <th>카테고리</th>
-                        <th>작성일</th>
+                        <th>작성일 <span class="refresh-captcha" id="refreshCaptcha" title="캡차 새로고침">&#x21bb;</span></th>
                         <th>조회수</th>
+                        <th>액션</th>
                     </tr>
                 </thead>
                 <tbody id="postTableBody">
                     <!-- 게시물이 동적으로 추가됩니다 -->
                 </tbody>
             </table>
+            <!-- 페이징 버튼 (추가) -->
+            <div class="d-flex justify-content-center mt-3">
+                <span class="pagination-btn" id="prevPage" title="이전 페이지">&#9664;</span>
+                <span id="currentPage">1</span>
+                <span class="pagination-btn" id="nextPage" title="다음 페이지">&#9654;</span>
+            </div>
         </section>
 
-        <section class="archive-section">
+        <!-- 게시물 작성 섹션 -->
+        <section class="section archive-section">
             <h2>게시물 작성</h2>
             <form id="writeForm">
                 <div class="mb-3">
@@ -128,83 +192,276 @@
                     <textarea class="form-control" id="excerptInput" placeholder="내용을 입력하세요" rows="3"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="captchaInput" class="form-label">보안문자: <span id="captchaCode"></span></label>
+                    <label for="captchaInput" class="form-label">보안문자: <span id="captchaCode"></span> <span class="refresh-captcha" id="refreshCaptchaForm" title="캡차 새로고침">&#x21bb;</span></label>
                     <input type="text" class="form-control" id="captchaInput" placeholder="보안문자를 입력하세요" required>
                 </div>
                 <button type="submit" class="btn btn-primary">게시물 추가</button>
             </form>
         </section>
     </div>
+
+    <!-- 푸터 -->
     <footer>
         <p>&copy; 2024 노현우의 개발노트</p>
+        <p>Powered by HTML & CSS</p>
     </footer>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const postTableBody = document.getElementById("postTableBody");
-            const writeForm = document.getElementById("writeForm");
-            const titleInput = document.getElementById("titleInput");
-            const categoryInput = document.getElementById("categoryInput");
-            const excerptInput = document.getElementById("excerptInput");
-            const captchaInput = document.getElementById("captchaInput");
-            const captchaCode = document.getElementById("captchaCode");
 
-            // Generate captcha code
+    <!-- 커스텀 알림 메시지 -->
+    <div class="custom-alert alert" role="alert" id="customAlert"></div>
+
+    <!-- Bootstrap JS (옵션) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Archive Page Script with Enhanced jQuery 이벤트 및 애니메이션 추가 -->
+    <script>
+        $(document).ready(function () {
+            const $postTableBody = $("#postTableBody");
+            const $writeForm = $("#writeForm");
+            const $titleInput = $("#titleInput");
+            const $categoryInput = $("#categoryInput");
+            const $excerptInput = $("#excerptInput");
+            const $captchaInput = $("#captchaInput");
+            const $captchaCode = $("#captchaCode");
+            const $refreshCaptcha = $("#refreshCaptcha");
+            const $refreshCaptchaForm = $("#refreshCaptchaForm");
+            const $searchInput = $("#searchInput");
+            const $sortBtns = $(".sort-btn");
+            const $customAlert = $("#customAlert");
+            const $prevPage = $("#prevPage");
+            const $nextPage = $("#nextPage");
+            const $currentPage = $("#currentPage");
+
+            const postsPerPage = 5; // 한 페이지당 게시물 수
+            let currentPage = 1;
+            let totalPages = 1;
+
+            // 캡차 코드 생성 함수
             const generateCaptcha = () => {
                 const code = Math.random().toString(36).substr(2, 6).toUpperCase();
-                captchaCode.textContent = code;
+                $captchaCode.text(code);
                 return code;
             };
 
             let currentCaptcha = generateCaptcha();
 
-            // Load posts from localStorage
-            const posts = JSON.parse(localStorage.getItem("posts")) || [];
+            // 캡차 리프레시 이벤트
+            $refreshCaptcha.on("click", function(){
+                $(this).effect("shake", { distance: 5 }, 500);
+                currentCaptcha = generateCaptcha();
+            });
 
-            // Render posts
+            $refreshCaptchaForm.on("click", function(){
+                $(this).effect("shake", { distance: 5 }, 500);
+                currentCaptcha = generateCaptcha();
+            });
+
+            // 로컬 스토리지에서 게시물 불러오기
+            let posts = JSON.parse(localStorage.getItem("posts")) || [];
+
+            // 게시물 렌더링 함수
             const renderPosts = () => {
-                postTableBody.innerHTML = "";
-                posts.forEach((post, index) => {
+                $postTableBody.empty();
+                // 페이징 계산
+                totalPages = Math.ceil(posts.length / postsPerPage) || 1;
+                if(currentPage > totalPages) currentPage = totalPages;
+                const start = (currentPage - 1) * postsPerPage;
+                const end = start + postsPerPage;
+                const currentPosts = posts.slice(start, end);
+                currentPosts.forEach((post, index) => {
+                    const globalIndex = start + index;
                     const row = `
-                        <tr>
-                            <td>${index + 1}</td>
-                            <td>${post.title || "제목 없음"}</td>
+                        <tr class="animated-row">
+                            <td>${globalIndex + 1}</td>
+                            <td class="post-title">${post.title || "제목 없음"}</td>
                             <td>${post.category || "카테고리 없음"}</td>
                             <td>${post.date || "날짜 없음"}</td>
-                            <td>${post.views || 0}</td>
+                            <td class="post-views">${post.views || 0}</td>
+                            <td>
+                                <span class="delete-post-btn" title="게시물 삭제">&#x1f5d1;</span>
+                                <span class="detail-toggle-btn" title="상세 보기" style="margin-left:10px; cursor:pointer;">&#x25BC;</span>
+                            </td>
+                        </tr>
+                        <tr class="detail-row">
+                            <td colspan="6" class="detail-content">
+                                <strong>내용:</strong> ${post.excerpt || "내용 없음"}
+                            </td>
                         </tr>
                     `;
-                    postTableBody.innerHTML += row;
+                    $postTableBody.append(row);
                 });
+                // 애니메이션 효과 적용
+                $(".animated-row").hide().fadeIn(1000).removeClass("animated-row");
+                updatePagination();
             };
 
-            // Add post
-            writeForm.addEventListener("submit", (event) => {
-                event.preventDefault();
-                if (captchaInput.value.toUpperCase() !== currentCaptcha) {
-                    alert("보안문자가 올바르지 않습니다. 다시 시도하세요.");
-                    captchaInput.value = "";
-                    currentCaptcha = generateCaptcha();
-                    return;
-                }
-
+            // 게시물 추가 함수
+            const addPost = () => {
                 const newPost = {
-                    title: titleInput.value.trim() || "제목 없음",
-                    category: categoryInput.value.trim() || "카테고리 없음",
-                    excerpt: excerptInput.value.trim() || "내용 없음",
+                    title: $titleInput.val().trim() || "제목 없음",
+                    category: $categoryInput.val().trim() || "카테고리 없음",
+                    excerpt: $excerptInput.val().trim() || "내용 없음",
                     date: new Date().toLocaleDateString("ko-KR"),
                     views: 0,
                 };
                 posts.push(newPost);
                 localStorage.setItem("posts", JSON.stringify(posts));
+                currentPage = totalPages; // 새 게시물이 추가되면 마지막 페이지로 이동
                 renderPosts();
-                titleInput.value = "";
-                categoryInput.value = "";
-                excerptInput.value = "";
-                captchaInput.value = "";
+                // 입력 필드 애니메이션
+                $writeForm.fadeOut(300, function(){
+                    $(this).fadeIn(300);
+                });
+                // 성공 알림 애니메이션
+                showAlert("게시물이 성공적으로 추가되었습니다!", "success");
+                // 폼 초기화
+                $writeForm[0].reset();
                 currentCaptcha = generateCaptcha();
-                alert("게시물이 성공적으로 추가되었습니다!");
+            };
+
+            // 게시물 삭제 함수
+            const deletePost = (index) => {
+                posts.splice(index, 1);
+                localStorage.setItem("posts", JSON.stringify(posts));
+                renderPosts();
+                // 삭제 알림 애니메이션
+                showAlert("게시물이 삭제되었습니다.", "danger");
+            };
+
+            // 게시물 상세보기 토글 함수
+            const toggleDetail = (row) => {
+                row.next(".detail-row").slideToggle(300);
+                const toggleBtn = row.find(".detail-toggle-btn");
+                toggleBtn.html(toggleBtn.html() === "&#x25BC;" ? "&#x25B2;" : "&#x25BC;");
+            };
+
+            // 알림 메시지 표시 함수
+            const showAlert = (message, type) => {
+                $customAlert.removeClass().addClass(`alert alert-${type} custom-alert`).text(message).fadeIn(500).delay(2000).fadeOut(500);
+            };
+
+            // 페이징 업데이트 함수
+            const updatePagination = () => {
+                $currentPage.text(currentPage);
+                // 페이징 버튼 활성화/비활성화
+                if(currentPage <= 1){
+                    $prevPage.hide();
+                } else {
+                    $prevPage.show();
+                }
+
+                if(currentPage >= totalPages){
+                    $nextPage.hide();
+                } else {
+                    $nextPage.show();
+                }
+            };
+
+            // 게시물 추가 이벤트 핸들러
+            $writeForm.on("submit", function(event){
+                event.preventDefault();
+                if($captchaInput.val().toUpperCase() !== currentCaptcha){
+                    // 캡차 실패 애니메이션
+                    $captchaInput.addClass("is-invalid");
+                    $captchaInput.effect("shake", { distance: 5 }, 500);
+                    showAlert("보안문자가 올바르지 않습니다. 다시 시도하세요.", "warning");
+                    $captchaInput.val("");
+                    currentCaptcha = generateCaptcha();
+                    return;
+                }
+                addPost();
             });
 
+            // 게시물 삭제 이벤트 핸들러 (동적으로 추가된 요소에 이벤트 위임)
+            $postTableBody.on("click", ".delete-post-btn", function(){
+                const rowIndex = $(this).closest("tr").index() / 2; // 상세 행을 포함하여 계산
+                // 삭제 확인 다이얼로그
+                $("<div title='삭제 확인'>해당 게시물을 삭제하시겠습니까?</div>").dialog({
+                    modal: true,
+                    buttons: {
+                        "삭제": function() {
+                            deletePost(rowIndex);
+                            $(this).dialog("close");
+                        },
+                        "취소": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+
+            // 게시물 상세보기 토글 이벤트 핸들러
+            $postTableBody.on("click", ".detail-toggle-btn", function(){
+                const row = $(this).closest("tr");
+                toggleDetail(row);
+            });
+
+            // 게시물 클릭 시 조회수 증가 애니메이션
+            $postTableBody.on("click", ".post-title", function(){
+                const row = $(this).closest("tr");
+                const viewsCell = row.find(".post-views");
+                let views = parseInt(viewsCell.text()) || 0;
+                views += 1;
+                viewsCell.text(views).hide().fadeIn(500);
+                // 조회수 애니메이션 (색상 변경)
+                viewsCell.css("color", "#28a745").effect("highlight", { color: "#28a745" }, 2000);
+                // 로컬 스토리지 업데이트
+                const globalIndex = row.index() / 2; // 상세 행을 포함하여 계산
+                posts[globalIndex].views = views;
+                localStorage.setItem("posts", JSON.stringify(posts));
+            });
+
+            // 검색 기능 애니메이션
+            $searchInput.on("keyup", function(){
+                const query = $(this).val().toLowerCase();
+                $("#postTableBody tr").each(function(){
+                    const title = $(this).find(".post-title").text().toLowerCase();
+                    const category = $(this).find("td:nth-child(3)").text().toLowerCase();
+                    if(title.includes(query) || category.includes(query)){
+                        $(this).fadeIn(300);
+                        $(this).next(".detail-row").fadeIn(300);
+                    } else {
+                        $(this).fadeOut(300);
+                        $(this).next(".detail-row").fadeOut(300);
+                    }
+                });
+            });
+
+            // 정렬 기능 애니메이션
+            $sortBtns.on("click", function(){
+                const sortBy = $(this).data("sort");
+                if(sortBy === "date"){
+                    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                } else if(sortBy === "views"){
+                    posts.sort((a, b) => b.views - a.views);
+                }
+                localStorage.setItem("posts", JSON.stringify(posts));
+                renderPosts();
+                showAlert("게시물이 정렬되었습니다.", "info");
+            });
+
+            // 페이징 버튼 이벤트 핸들러
+            $prevPage.on("click", function(){
+                if(currentPage > 1){
+                    currentPage--;
+                    renderPosts();
+                }
+            });
+
+            $nextPage.on("click", function(){
+                if(currentPage < totalPages){
+                    currentPage++;
+                    renderPosts();
+                }
+            });
+
+            // 폼 입력 필드에 포커스 시 애니메이션
+            $(".form-control").on("focus", function(){
+                $(this).animate({ backgroundColor: "#e6f7ff" }, 300);
+            }).on("blur", function(){
+                $(this).animate({ backgroundColor: "#ffffff" }, 300);
+            });
+
+            // 페이지 로드 시 초기 게시물 렌더링
             renderPosts();
         });
     </script>

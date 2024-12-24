@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="ko">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="노현우의 개발노트 방명록에서 메시지를 남기고 다른 사람의 메시지를 확인하세요.">
     <meta name="author" content="OHSAYU">
     <title>방명록 - 노현우의 개발노트</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/common.css">
+    <!-- jQuery 라이브러리 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery UI (애니메이션 효과를 위한 추가 라이브러리) -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <style>
+        /* 방명록 페이지 고유 스타일 */
         .guestbook {
             background: white;
             border-radius: 8px;
@@ -29,6 +35,12 @@
             border-radius: 5px;
             padding: 1rem;
             margin-bottom: 1rem;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .message:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .message p {
             margin: 0;
@@ -40,112 +52,276 @@
             font-size: 0.85rem;
             color: #868e96;
         }
-        .nav-bottom {
-            background: #343a40;
-            color: white;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            padding: 1rem 0;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
+        /* 삭제 버튼 스타일 */
+        .delete-message-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: none; /* 기본적으로 숨김 */
         }
+        .delete-message-btn:hover {
+            color: #a71d2a;
+        }
+        /* 방명록 항목에 마우스 오버 시 삭제 버튼 표시 */
+        .message:hover .delete-message-btn {
+            display: block;
+        }
+        /* 하단 네비게이션 바 스타일 유지 */
         .nav-bottom a {
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem; /* 상단 네비게이션과 동일한 글자 크기 */
             font-weight: bold;
-            text-decoration: none;
-            transition: color 0.3s;
+            padding: 0.5rem 1rem; /* 상단 네비게이션과 동일한 패딩 */
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 4px;
         }
         .nav-bottom a:hover {
             color: #ffc107;
+            background-color: rgba(255, 255, 255, 0.1);
         }
         body {
-            padding-bottom: 70px; /* 네비게이션 높이만큼 추가 여백 */
+            padding-bottom: 70px; /* 하단 네비게이션 높이만큼 추가 여백 */
+            background-color: #f1f3f5;
+            transition: background-color 0.3s ease;
+        }
+        /* 애니메이션용 클래스 */
+        .animated-item {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 로딩 스피너 스타일 */
+        #loadingSpinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            display: none;
+        }
+
+        /* 툴팁 스타일 */
+        .tooltip-custom {
+            position: absolute;
+            background-color: #000;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            z-index: 1000;
         }
     </style>
-
 </head>
-
 <body>
-<header>
-    <h1>노현우의 개발노트</h1>
-    <p>방명록을 통해 개발 여정을 함께하세요.</p>
-</header>
+    <!-- 상단 헤더 -->
+    <header>
+        <h1>노현우의 개발노트</h1>
+        <p>방명록을 통해 개발 여정을 함께하세요.</p>
+    </header>
 
-<div class="container mt-4">
-    <section class="guestbook">
-        <h2>방명록</h2>
-        <form class="guestbook-form" onsubmit="addMessage(event)">
-            <div class="mb-3">
-                <textarea class="form-control" id="messageInput" placeholder="메시지를 작성하세요" required aria-label="방명록 메시지 작성란"></textarea>
+    <!-- 상단 네비게이션 바 -->
+    <nav>
+        <a href="devMain.html">홈</a>
+        <a href="devCategory.html">카테고리</a>
+        <a href="devArchive.html">아카이브</a>
+        <a href="devVisit.html" class="active" aria-current="page">방명록</a>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="container mt-4">
+        <section class="guestbook">
+            <h2>방명록</h2>
+            <form class="guestbook-form" id="visitForm" aria-label="방명록 작성 폼">
+                <div class="mb-3">
+                    <textarea class="form-control" id="messageInput" placeholder="메시지를 작성하세요" required aria-label="방명록 메시지 작성란"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" aria-label="메시지 작성 버튼">메시지 작성</button>
+            </form>
+            <div class="messages mt-4" id="messageList">
+                <!-- 기본 메시지 (JavaScript 비활성화 대비) -->
+                <div class="message">
+                    <p>이 사이트 정말 유익합니다!</p>
+                    <small>작성 시간: 2024. 9. 15. 12:34</small>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary" aria-label="메시지 작성 버튼">메시지 작성</button>
-        </form>
-        <div class="messages mt-4" id="messageList">
-            <!-- 기본 메시지 (JavaScript 비활성화 대비) -->
-            <div class="message">
-                <p>이 사이트 정말 유익합니다!</p>
-                <small>작성 시간: 2024. 9. 15. 12:34</small>
-            </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
+    <!-- 하단 네비게이션 바 -->
+    <nav class="nav-bottom">
+        <a href="devMain.html">홈</a>
+        <a href="devCategory.html">카테고리</a>
+        <a href="devArchive.html">아카이브</a>
+        <a href="devVisit.html" class="active">방명록</a>
+    </nav>
 
+    <!-- 푸터 -->
+    <footer>
+        <p>&copy; 2024 노현우의 개발노트</p>
+        <p>Powered by HTML & CSS</p>
+    </footer>
 
-<footer>
-    <p>&copy; 2024 노현우의 개발노트</p>
-    <p>Powered by HTML & CSS</p>
-</footer>
+    <!-- Bootstrap JS (옵션) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- 방명록 페이지 스크립트 -->
+    <script>
+        $(document).ready(function () {
+            const $messageInput = $("#messageInput");
+            const $messageList = $("#messageList");
+            const $visitForm = $("#visitForm");
+            const $loadingSpinner = $("#loadingSpinner");
+            const $tooltip = $("#tooltip");
 
+            // 로컬 스토리지에서 메시지 불러오기 또는 기본값 사용
+            let messages = JSON.parse(localStorage.getItem("guestbookMessages")) || [
+                { text: "이 사이트 정말 유익합니다!", time: "2024. 9. 15. 12:34" },
+            ];
+            localStorage.setItem("guestbookMessages", JSON.stringify(messages));
 
+            // 메시지 목록 렌더링 함수
+            const renderMessages = () => {
+                $messageList.empty(); // 기존 메시지 초기화
+                messages.slice().reverse().forEach((msg) => { // 최신 메시지가 위로 오도록 역순 정렬
+                    const $messageDiv = $(`
+                        <div class="message animated-item">
+                            <p>${escapeHtml(msg.text)}</p>
+                            <small>작성 시간: ${msg.time}</small>
+                            <span class="delete-message-btn" title="메시지 삭제" aria-label="메시지 삭제">&#10006;</span>
+                        </div>
+                    `);
+                    // 메시지 항목에 페이드 인 효과 추가
+                    $messageDiv.hide().prependTo($messageList).fadeIn(1000);
+                });
+            };
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const messageInput = document.getElementById("messageInput");
-        const messageList = document.getElementById("messageList");
+            // 메시지 추가 함수
+            const addMessage = (event) => {
+                event.preventDefault();
+                const messageText = $messageInput.val().trim();
+                if (messageText !== "") {
+                    const newMessage = {
+                        text: messageText,
+                        time: new Date().toLocaleString("ko-KR"),
+                    };
+                    messages.push(newMessage);
+                    localStorage.setItem("guestbookMessages", JSON.stringify(messages));
+                    renderMessages();
+                    $messageInput.val("");
+                    showAlert("메시지가 성공적으로 작성되었습니다.", "success");
+                } else {
+                    showAlert("메시지를 입력해주세요.", "warning");
+                }
+            };
 
-        // Load messages from localStorage
-        const messages = JSON.parse(localStorage.getItem("guestbookMessages")) || [];
+            // 메시지 삭제 함수
+            const deleteMessage = (index) => {
+                if (confirm("이 메시지를 삭제하시겠습니까?")) {
+                    messages.splice(index, 1);
+                    localStorage.setItem("guestbookMessages", JSON.stringify(messages));
+                    renderMessages();
+                    showAlert("메시지가 삭제되었습니다.", "danger");
+                }
+            };
 
-        // Render messages
-        const renderMessages = () => {
-            messageList.innerHTML = "";
-            messages.forEach((msg) => {
-                const messageDiv = document.createElement("div");
-                messageDiv.classList.add("message");
-                messageDiv.innerHTML = `
-                    <p>${msg.text}</p>
-                    <small>작성 시간: ${msg.time}</small>
+            // Escape HTML to prevent XSS
+            const escapeHtml = (unsafe) => {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            };
+
+            // 알림 메시지 표시 함수 (Bootstrap Toast 사용)
+            const showAlert = (message, type) => {
+                const toastHTML = `
+                    <div class="toast align-items-center text-bg-${type} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                            <div class="toast-body">
+                                ${message}
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="닫기"></button>
+                        </div>
+                    </div>
                 `;
-                messageList.insertBefore(messageDiv, messageList.firstChild);
-            });
-        };
+                $(".toast-container").append(toastHTML);
+                $(".toast").toast({ delay: 3000 }).toast("show");
+                // 토스트 제거
+                $(".toast").on('hidden.bs.toast', function () {
+                    $(this).remove();
+                });
+            };
 
-        // Add message
-        const addMessage = (event) => {
-            event.preventDefault();
-            if (messageInput.value.trim() !== "") {
-                const newMessage = {
-                    text: messageInput.value,
-                    time: new Date().toLocaleString("ko-KR"),
-                };
-                messages.push(newMessage);
-                localStorage.setItem("guestbookMessages", JSON.stringify(messages));
+            // 로딩 스피너 표시 함수
+            const showLoading = () => {
+                $("body").append(`
+                    <div id="loadingSpinner">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                `);
+                $("#loadingSpinner").fadeIn(300);
+            };
+
+            // 로딩 스피너 숨기기 함수
+            const hideLoading = () => {
+                $("#loadingSpinner").fadeOut(300, function(){
+                    $(this).remove();
+                });
+            };
+
+            // 초기 데이터 로딩 시 로딩 스피너 표시
+            showLoading();
+
+            // 데이터 로딩 완료 후 메시지 렌더링 및 로딩 스피너 숨기기
+            setTimeout(() => {
                 renderMessages();
-                messageInput.value = "";
-            }
-        };
+                hideLoading();
+            }, 1000); // 실제 데이터 로딩 시간에 맞춰 조정 가능
 
-        renderMessages();
+            // 폼 제출 이벤트 핸들러
+            $visitForm.on("submit", addMessage);
 
-        // Attach event listener
-        document.querySelector(".guestbook-form").addEventListener("submit", addMessage);
-    });
-</script>
+            // 메시지 삭제 버튼 클릭 이벤트 핸들러 (동적 요소 이벤트 위임)
+            $messageList.on("click", ".delete-message-btn", function(){
+                const index = $messageList.find(".delete-message-btn").index(this);
+                deleteMessage(messages.length - 1 - index); // 최신 메시지가 위에 있으므로 역순 인덱스
+            });
+
+            // 메시지 항목에 호버 애니메이션 추가
+            $messageList.on("mouseenter", ".message", function(){
+                $(this).animate({ backgroundColor: "#e2e6ea" }, 300);
+                // 툴팁 표시 (예: 작성 시간)
+                const time = $(this).find("small").text();
+                $tooltip.text(time);
+                const offset = $(this).offset();
+                const height = $(this).outerHeight();
+                $tooltip.css({
+                    top: offset.top + height + 5,
+                    left: offset.left,
+                }).fadeIn(200);
+            }).on("mouseleave", ".message", function(){
+                $(this).animate({ backgroundColor: "#f8f9fa" }, 300);
+                // 툴팁 숨기기
+                $tooltip.fadeOut(200);
+            });
+
+            // 툴팁 숨기기 클릭 시 숨김
+            $(document).on("click", function(){
+                $tooltip.fadeOut(200);
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Joshua Roh</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Nanum+Brush+Script&family=Noto+Sans+KR:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(45deg, #0077b6, #00b4d8, #90e0ef);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    header h1 {
+      font-family: 'Nanum Brush Script', cursive;
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 0;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    header p {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .container {
+      max-width: 85%;
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      padding: 2rem;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      flex-grow: 1;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .project-section {
+      margin: 2rem 0;
+    }
+
+    .project-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .project {
+      margin-bottom: 1.5rem;
+    }
+
+    .project h3 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project p {
+      font-size: 1rem;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .project a {
+      color: #00b4d8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .project a:hover {
+      color: #ff77aa;
+      text-decoration: underline;
+    }
+
+    footer {
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      margin-top: auto;
+      width: 100%;
+    }
+
+    footer a {
+      color: #00b4d8;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #ff77aa;
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    // Ajax를 사용해 JSON 데이터를 불러와 프로젝트 섹션에 추가
+    function loadPlayerProject() {
+      const xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
+      xhr.open("GET", "players.json", true); // players.json 파일 요청
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const players = JSON.parse(xhr.responseText); // JSON 데이터를 객체로 변환
+          displayPlayerProject(players); // 데이터를 HTML에 추가
+        } else {
+          console.error("JSON 데이터를 불러오는 데 실패했습니다.");
+        }
+      };
+      xhr.send();
+    }
+
+    // JSON 데이터를 프로젝트 섹션에 추가
+    function displayPlayerProject(players) {
+      const container = document.querySelector(".project-section");
+
+      // 추가할 프로젝트 섹션
+      const projectHTML = `
+        <div class="project">
+          <h3>⚽ Player Data Visualization</h3>
+          <p>
+            축구 선수 데이터를 기반으로 한 시각화 프로젝트입니다. JSON 형식으로 저장된 데이터를 Ajax를 통해 불러오고,
+            HTML 테이블과 차트로 데이터를 동적으로 렌더링합니다.
+          </p>
+          <p><strong>총 선수:</strong> ${players.length}</p>
+          <p>
+            <a href="player_visualization.html">자세히 보기</a>
+          </p>
+        </div>
+      `;
+
+      container.innerHTML += projectHTML; // 프로젝트 섹션에 추가
+    }
+
+    // 페이지 로드 시 JSON 데이터를 로드
+    window.onload = loadPlayerProject;
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>My Projects</h1>
+    <p>제가 참여한 주요 프로젝트를 소개합니다!</p>
+  </header>
+
+  <div class="container">
+    <div class="project-section">
+      <h2>프로젝트 목록</h2>
+
+      <div class="project">
+        <h3>📦 E-Commerce Platform</h3>
+        <p>
+          현대적인 전자상거래 웹사이트 개발. Java와 Spring Framework를 사용하여 백엔드 개발 및 MySQL 데이터베이스를 연동하였습니다.
+          사용자 친화적인 UI/UX 디자인과 결제 기능을 구현하였습니다.
+          <br><a href="ecommerce_project.html">자세히 보기</a>
+        </p>
+      </div>
+
+      <div class="project">
+        <h3>🎨 포트폴리오 웹사이트</h3>
+        <p>
+          개인 포트폴리오 웹사이트를 개발하여 프로젝트와 경력을 공유할 수 있는 플랫폼을 제작하였습니다.
+          HTML, CSS, JavaScript를 사용하여 반응형 디자인을 구현했습니다.
+          <br><a href="portfolio_website.html">자세히 보기</a>
+        </p>
+      </div>
+
+      <div class="project">
+        <h3>📊 데이터 분석 대시보드</h3>
+        <p>
+          Python과 Pandas를 사용하여 데이터를 분석하고, Dash 라이브러리를 통해 대시보드를 구축했습니다.
+          데이터 시각화를 통해 비즈니스 통찰력을 제공하는 프로젝트입니다.
+          <br><a href="data_dashboard.html">자세히 보기</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      &copy; 2024 Joshua Roh. 모든 권리 보유.<br>
+      이 페이지의 내용과 디자인은 저작권법에 의해 보호받으며, 무단 도용 및 재배포를 금합니다.<br>
+      문의 사항: <a href="mailto:contact@joshua.com">contact@joshua.com</a>
+    </p>
+  </footer>
+</body>
+
+</html>
